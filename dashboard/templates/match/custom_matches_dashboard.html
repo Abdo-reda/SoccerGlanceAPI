@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<link href="{% static './css/dashboard.css' %}" rel="stylesheet">
+
+
+
+<div id="video-container">
+    <video id="background-video" autoplay muted playsinline loop>
+        <source src="{% static './assets/videos/sample_game.mp4' %}" type="video/mp4">
+    </video>
+    <div id="video-overlay"></div>
+</div>
+
+
+
+  {% if custom_matches %}
+  <section class="team text-center  {% if custom_matches %} mt-1  {% else %}py-3 mt-5 {% endif %} py-5 mt-5">
+  
+
+    <div class="container fade-in card w-75" style="  background-color: rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+      <div class="card-body ">
+  
+        <h3>&#x1F512;<h3 class="my-2 display-6 fw-bold ls-tight" style="background: linear-gradient(to right, #ffffff, #eb1963);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;">Custom Matches</h3></h3>
+  
+      <div class="row justify-content-center">
+        <table class="table table-borderless">
+          <thead class="thead" style="color:antiquewhite;">
+            <tr>
+              <th scope="col">Match ID</th>
+              <th scope="col">Team 1</th>
+              <th scope="col">Team 2</th>
+              <th scope="col">Score</th>
+              <th scope="col">League</th>
+              <th scope="col">Match Registration</th>
+              <th scope="col">Status</th>
+
+            </tr>
+          </thead>
+          <tbody style="color:rgb(96, 96, 96);">
+            {% for custom_match in custom_matches %}
+            <tr>
+              <td><a href="#" class="copy-link" data-match-id="{{ custom_match.match_id }}">Copy ID</a></td>
+              <td>{{ custom_match.team_1 }}</td>
+              <td>{{ custom_match.team_2 }}</td>
+              <td>{{ custom_match.score }}</td>
+              <td>{{ custom_match.league__league_name }}</td>
+              
+              {% if custom_match.match_id in registered_matches %}
+              <td><a href="#" class="btn btn-danger disabled" data-match-id="{{ custom_match.match_id }}">Already Registered</a></td>
+
+              {% else %}
+              <td><a href="#" class="btn btn-success register-btn" data-match-id="{{ custom_match.match_id }}">Register</a></td>
+              {% endif %}
+
+              {% if custom_match.is_live %}
+                <td><button type="button" class="btn btn-outline-success disabled">&#x2022; Live</button></td>
+              {% else %}
+                <td><button type="button" class="btn btn-outline-danger disabled">Offline</button></td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+          
+          </tbody>
+        </table>
+
+      </div>
+
+
+      </div>
+      
+    </section>
+
+  
+    {% endif %}
+  <!-- credits: https://bootstrapcrew.com/snippets/team-members/ -->
+
+  <script defer>// Get all the 'Copy ID' link elements
+// Get all the 'Copy ID' link elements
+const copyLinks = document.getElementsByClassName('copy-link');
+
+// Attach the mouseover and focus event listeners to each link
+Array.from(copyLinks).forEach(link => {
+  link.addEventListener('mouseover', handleCopy);
+  link.addEventListener('focus', handleCopy);
+});
+
+// Function to handle the copy functionality
+function handleCopy(event) {
+  // Get the match ID from the data-match-id attribute
+  const matchId = event.target.getAttribute('data-match-id') || event.target.dataset.matchId;
+
+  // Create a temporary input element
+  const tempInput = document.createElement('input');
+  tempInput.value = matchId;
+  document.body.appendChild(tempInput);
+
+  // Select the value of the input element
+  tempInput.select();
+
+  // Copy the selected value to the clipboard
+  document.execCommand('copy');
+
+  // Remove the temporary input element
+  document.body.removeChild(tempInput);
+
+  // Optionally, provide some feedback to the user
+  console.log('Match ID copied to clipboard: ' + matchId);
+}
+
+  </script>
+
+<script defer>
+  // Get all the 'Register' button elements
+  const registerButtons = document.getElementsByClassName('register-btn');
+
+  // Attach a click event listener to each button
+  Array.from(registerButtons).forEach(button => {
+    button.addEventListener('click', handleRegister);
+  });
+
+  // Function to handle the register functionality
+  function handleRegister(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Get the match ID from the data-match-id attribute
+    const matchId = event.target.getAttribute('data-match-id');
+
+    const sessionId = getSessionIdFromCookie();
+    const csrfToken = getCSRFTokenFromCookie();
+
+    // Get the session ID and CSRF token from the browser's cookies
+    console.log('Session ID: ' + sessionId);
+    console.log('CSRF Token: ' + csrfToken);
+
+    // Prepare the request data
+    const requestData = {
+      match_id: matchId
+    };
+    console.log(JSON.stringify(requestData));
+
+    console.log(matchId);
+    // Send a POST request to the register_for_match endpoint
+    fetch('/api/register_for_match/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Session ' + sessionId,
+        'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify(requestData)
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response data
+        console.log(data); // You can customize this part based on your needs
+
+        // Refresh the page
+        location.reload();
+      })
+      .catch(error => {
+        // Handle any errors that occur during the request
+        console.error('Error:', error);
+      });
+  }
+
+  // Function to get the session ID from the cookie
+  function getSessionIdFromCookie() {
+    const cookieString = document.cookie;
+    if (cookieString) {
+      const sessionIdCookie = cookieString.split('; ')
+        .find(row => row.startsWith('sessionid='));
+      if (sessionIdCookie) {
+        return sessionIdCookie.split('=')[1];
+      }
+    }
+    return null; // Return null if the session ID is not found or cookies are not supported
+  }
+
+  // Function to get the CSRF token from the cookie
+  function getCSRFTokenFromCookie() {
+    const cookieString = document.cookie;
+    if (cookieString) {
+      const csrfTokenCookie = cookieString.split('; ')
+        .find(row => row.startsWith('csrftoken='));
+      if (csrfTokenCookie) {
+        return csrfTokenCookie.split('=')[1];
+      }
+    }
+    return null; // Return null if the CSRF token is not found or cookies are not supported
+  }
+</script>
+
+
+
+
+  {% endblock %}
+

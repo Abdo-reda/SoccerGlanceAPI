@@ -1,0 +1,63 @@
+body {
+	background-image: url('https://i.ibb.co/rMhnnc8/ronaldo-real.png');
+	background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+
+
+#radius-shape-1 {
+    height: 420px;
+    width: 420px;
+    border-radius: 50%;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+
+  .card-body img {
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 0;
+  }
+  
+  .card-body {
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .homepage-mockup{
+    z-index: 99;
+    -webkit-user-drag: none; /* For Safari */
+    user-select: none;
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+    -ms-user-select: none; /* For Internet Explorer/Edge */
+    transition: all 0.1s ease-in-out;
+  }
+
+.homepage-mockup:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}

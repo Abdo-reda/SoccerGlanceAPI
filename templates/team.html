@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<link href="{% static './css/team.css' %}" rel="stylesheet">
+
+
+
+<div id="video-container">
+    <video id="background-video" preload="auto" autoplay muted playsinline loop>
+        <source src="{% static './assets/videos/sample_game.mp4' %}" type="video/mp4">
+    </video>
+    <div id="video-overlay"></div>
+</div>
+
+<!-- Navigation -->
+<section class="team text-center py-5 mt-5">
+  
+
+  <div class="container card bg-glass">
+    <div class="card-body ">
+
+      <div class="header mt-1 text-light" >
+        <h3>Meet Our Co-Founders</h3>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-3">
+        <div class="img-block mb-3">
+            <img src="{% static './assets/images/team/abdo.jpg' %}" class="rounded-circle shadow-4-strong" alt="image1">
+            <div class="content mt-2">
+            <h5>Abdelrahman Reda</h5>
+            <p class="text-muted">Founding Software Engineer</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="img-block mb-3">
+            <img src="{% static './assets/images/team/menna.jpg' %}" class="rounded-circle shadow-4-strong" alt="image1">
+            <div class="content mt-2">
+              <h5>Menna Wagdy</h5>
+              <p class="text-muted">Founding Software Engineer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="img-block mb-3">
+            <img src="{% static './assets/images/team/mohamed.jpeg' %}" class="rounded-circle shadow-4-strong" alt="image1">
+            <div class="content mt-2">
+              <h5>Mohamed Yasser</h5>
+              <p class="text-muted">Founding Software Engineer</p>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="img-block mb-3">
+            <img src="{% static './assets/images/team/omar.jpg' %}" class="rounded-circle shadow-4-strong" alt="image1">
+            <div class="content mt-2">
+              <h5>Omar Saleh</h5>
+              <p class="text-muted">Founding Software Engineer</p>
+            </div>
+          </div>
+        </div>    
+
+        <div class="col-md-6 col-lg-3">
+          <div class="img-block mb-3">
+            <img src="{% static './assets/images/team/yara.jpg' %}" class="rounded-circle shadow-4-strong" alt="image1">
+            <div class="content mt-2">
+              <h5>Yara Yahya</h5>
+              <p class="text-muted">Founding Software Engineer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="img-block mb-3">
+            <img src="{% static './assets/images/team/youssef.jpg' %}" class="rounded-circle shadow-4-strong" alt="image1">
+            <div class="content mt-2">
+              <h5>Youssef Megahed</h5>
+              <p class="text-muted">Founding Software Engineer</p>
+            </div>
+          </div>
+        </div>
+
+        </div>
+    </div>
+    </div>
+
+        
+
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <!-- credits: https://bootstrapcrew.com/snippets/team-members/ -->
+
+    
+{% endblock %}
+

@@ -1,0 +1,36 @@
+#video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  #video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Change the opacity (last parameter) to adjust the transparency */
+    z-index: 1; /* Make sure the overlay is on top of the video element */
+  }
+  
+  .bg-glass{
+    background-color: hsla(0, 0%, 100%, 0.8) !important;
+  }
+  
+  
+  #background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+  }
+  

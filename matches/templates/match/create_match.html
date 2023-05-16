@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!-- Navigation -->
+<link rel="stylesheet" href="{% static './css/create_match.css' %}">
+
+<div id="video-container">
+    <video id="background-video" autoplay muted playsinline loop>
+        <source src="{% static './assets/videos/sample_game.mp4' %}" type="video/mp4">
+    </video>
+    <div id="video-overlay"></div>
+</div>
+
+<section style="margin-top: 5%;">
+<div class="container px-3 py-2 px-md-5 text-center my-3 col-lg-10" >
+    <div class="d-flex justify-content-center align-items-center">
+      <div class=" mb-6 mb-lg-0 position-relative col-md-6" >
+
+                   <div class="card bg-glass" style="  max-height: 100vh;" >
+                    <div class="card-body px-4">
+                        <h3 class="my-3 display-6 fw-bold ls-tight">Add custom match</h3>
+                        <p> <strong> Take Control of Your Football Experience</strong> <br> Add Your Own Custom Match
+                             and Schedule Highlights on Our API!</p>
+                        <form method="POST" action="{% url 'create_match' %}" name="register">
+                            {% csrf_token %}
+        
+                            {% for field in form %}
+                            <div class="form-floating mb-3">
+                              {{field}}
+                                <label for="form3Example3">{{field.label}}</label>
+                              </div>
+
+                              {% for error in field.errors %}
+                            <p style="color: red;">{{error}}</p>
+                            {% endfor %}
+            
+                            {% endfor %}
+        
+                            <!-- Submit button -->            
+                          <button type="submit" class="btn btn-dark mb-2 btn-lg btn-block form-control">Add</button>
+                          </form>
+            
+                      </div>  
+                    </div>
+                  </section>
+                    {% endblock %}
+
+
+                      

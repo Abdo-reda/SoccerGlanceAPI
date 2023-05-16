@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script defer>
+	$(document).ready(function() {
+	  $("h1, p, .container").css("opacity", "0"); // Set initial opacity to 0
+	  $("h1, p, .container").animate({opacity: 1}, 750); // Fade in over 2 seconds
+	});
+  </script>
+  
+<section class="background-radial-gradient overflow-hidden" style="margin-top: 5%;">
+<link rel="stylesheet" href="{% static './css/login_signup.css' %}">
+  
+	<div class="container px-3 py-2 px-md-5 text-center text-lg-start my-5" >
+	  <div class="row gx-lg-5 align-items-center mb-5">
+		<div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+		  <h1 class=" my-5 display-6 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+			Login<br />
+			<span style="color: hsl(218, 81%, 75%)">Take your <br/> football  application <br/> to the next level<span />
+		  </h1>
+		  <p  class=" mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+			Welcome back to our automated football highlights platform! No more waiting for
+			reporters to finish creating highlights. Our deep learning, image recognition, 
+			and language model technologies automate the process, providing you with the latest moments 
+			from your favorite games in near real-time for a fraction of the cost!. 
+			Thank you for choosing us, and enjoy an unparalleled experience!
+
+		  </p>
+		</div>
+  
+		<div class="col-lg-6 mb-6 mb-lg-0 position-relative" >
+		  <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+  
+		  <div class="card bg-glass">
+			<div class="card-body px-4 pt-4 px-md-5">
+				<form method="POST" action="{% url 'login' %}" name="login">
+				{% csrf_token %}
+
+  
+				<!-- Email input -->
+				<div class="form-floating mb-3 mt-4">
+					<!-- <label class="form-label" for="form3Example3" >Email address</label> -->
+				  <input type="text" id="form3Example3"name="email" placeholder="Email" class="form-control" />
+				  <label for="form3Example3">Email address</label>
+
+				</div>
+
+				<!-- Password input -->
+				<div class="form-floating mb-3 mt-4">
+					<!--<label class="form-label" for="form3Example4"  >Password</label> -->
+				  <input type="password" name= "password" id="form3Example4" placeholder="Password" class="form-control" />
+				  <label for="form3Example3">Password</label>
+
+				</div>
+  
+
+				<!-- Submit button -->
+				<button type="submit" class="btn btn-dark btn-lg btn-block form-control">Login</button>
+  				
+			  </form>
+				<br>
+			  <a class = "forget-password-anchor link-secondary"  href="#">Forgot your password?</a>
+			  </div>  
+			</div>
+		</div>
+		</div>
+	</div>
+  </section>
+  <!-- Section: Design Block -->
+{% endblock %}
+

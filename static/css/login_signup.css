@@ -1,0 +1,29 @@
+body {
+	background-image: url('https://i.ibb.co/rMhnnc8/ronaldo-real.png');
+	background-repeat: no-repeat;
+    background-size: cover;
+  background-attachment: fixed;
+}
+  #radius-shape-1 {
+	height: 220px;
+	width: 220px;
+	top: -60px;
+	left: -70px;
+	background: radial-gradient(#44006b, #ad1fff);
+	overflow: hidden;
+  }
+  
+
+  .bg-glass {
+	background-color: hsla(0, 0%, 100%, 0.9) !important;
+	backdrop-filter: saturate(200%) blur(25px);
+  }
+
+
+.forget-password-anchor{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
